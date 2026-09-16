@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Onyx Status</title>
+  <style>
+    :root { --ink:#111827; --muted:#667085; --line:#e8ebf0; --bg:#f8fafc; --green:#159570; --green-bg:#e7f7f0; --purple:#6d5ce7; }
+    * { box-sizing:border-box; }
+    body { margin:0; color:var(--ink); background:var(--bg); font:15px/1.5 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    .wrap { max-width:980px; margin:auto; padding:0 28px; }
+    header { height:76px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--line); }
+    .brand { display:flex; align-items:center; gap:11px; font-weight:750; letter-spacing:-.02em; font-size:19px; }
+    .mark { width:30px; height:30px; display:grid; place-items:center; color:#fff; background:#141827; border-radius:9px; font-size:14px; font-weight:800; box-shadow:0 3px 8px #14182722; }
+    .header-link { color:var(--muted); text-decoration:none; font-size:13px; }
+    main { padding:68px 0 80px; }
+    .hero { text-align:center; margin-bottom:44px; }
+    .hero h1 { margin:0 0 13px; font-size:clamp(32px,5vw,48px); letter-spacing:-.055em; line-height:1.1; }
+    .hero p { margin:0 auto; max-width:540px; color:var(--muted); }
+    .overall { display:flex; align-items:center; gap:18px; padding:21px 24px; margin:0 0 24px; background:#fff; border:1px solid var(--line); border-radius:14px; box-shadow:0 5px 18px #16233b06; }
+    .check { width:39px; height:39px; display:grid; place-items:center; color:var(--green); background:var(--green-bg); border-radius:50%; font-size:22px; font-weight:700; }
+    .overall strong { display:block; font-size:16px; }
+    .overall span { color:var(--muted); font-size:13px; }
+    .label { margin:34px 0 11px; font-size:11px; color:#8992a3; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
+    .services { overflow:hidden; background:#fff; border:1px solid var(--line); border-radius:14px; }
+    .service { display:flex; align-items:center; justify-content:space-between; padding:20px 24px; border-bottom:1px solid var(--line); }
+    .service:last-child { border:0; }
+    .service-info { display:flex; align-items:center; gap:14px; }
+    .service-icon { width:35px; height:35px; display:grid; place-items:center; color:var(--purple); background:#f0eeff; border-radius:9px; font-weight:700; }
+    .service-name { font-weight:650; }
+    .service-meta { color:var(--muted); font-size:12px; margin-top:2px; }
+    .status { display:flex; align-items:center; gap:8px; color:var(--green); font-size:13px; font-weight:600; }
+    .dot { width:8px; height:8px; border-radius:50%; background:#20b486; box-shadow:0 0 0 4px #20b48618; }
+    .incident { padding:23px 24px; background:#fff; border:1px solid var(--line); border-radius:14px; }
+    .incident-top { display:flex; justify-content:space-between; gap:20px; }
+    .incident h3 { margin:0; font-size:15px; }
+    .date { color:#98a0af; font-size:12px; white-space:nowrap; }
+    .incident p { margin:8px 0 0; color:var(--muted); font-size:13px; }
+    footer { padding:25px 0 35px; color:#98a0af; text-align:center; font-size:12px; }
+    @media (max-width:600px) { .wrap { padding:0 18px; } main { padding-top:48px; } .service { padding:18px; } .overall { padding:18px; } .status { font-size:0; } .status .dot { margin-right:2px; } .incident-top { display:block; } .date { display:block; margin-top:4px; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand"><div class="mark">O</div> Onyx</div>
+      <a class="header-link" href="mailto:support@onyx.example">Contact support ↗</a>
+    </header>
+    <main>
+      <section class="hero">
+        <h1>Onyx Status</h1>
+        <p>Real-time updates about the availability and performance of Onyx services.</p>
+      </section>
+      <section class="overall" aria-label="Overall status">
+        <div class="check">✓</div>
+        <div><strong>All systems operational</strong><span>Everything is running smoothly.</span></div>
+      </section>
+      <div class="label">Services</div>
+      <section class="services">
+        <div class="service"><div class="service-info"><div class="service-icon">◆</div><div><div class="service-name">Onyx Platform</div><div class="service-meta">Core application and dashboard</div></div></div><div class="status"><i class="dot"></i>Operational</div></div>
+        <div class="service"><div class="service-info"><div class="service-icon">↔</div><div><div class="service-name">API</div><div class="service-meta">API requests and integrations</div></div></div><div class="status"><i class="dot"></i>Operational</div></div>
+        <div class="service"><div class="service-info"><div class="service-icon">↗</div><div><div class="service-name">Webhooks</div><div class="service-meta">Event delivery and notifications</div></div></div><div class="status"><i class="dot"></i>Operational</div></div>
+        <div class="service"><div class="service-info"><div class="service-icon">▣</div><div><div class="service-name">Authentication</div><div class="service-meta">Login and account services</div></div></div><div class="status"><i class="dot"></i>Operational</div></div>
+      </section>
+      <div class="label">Past incidents</div>
+      <section class="incident"><div class="incident-top"><h3>No incidents reported</h3><span class="date">Last 90 days</span></div><p>We’ll post updates here whenever an issue affects Onyx.</p></section>
+    </main>
+    <footer>© 2024 Onyx &nbsp;·&nbsp; Status updates are refreshed automatically</footer>
+  </div>
+</body>
+</html>
