@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact | OnyxStatus</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0b0f1a;
+        --bg-soft: #101827;
+        --panel: rgba(18, 24, 38, 0.8);
+        --panel-strong: #111827;
+        --card: rgba(17, 24, 39, 0.9);
+        --primary: #8b5cf6;
+        --primary-strong: #7c3aed;
+        --accent: #22d3ee;
+        --accent-soft: rgba(34, 211, 238, 0.12);
+        --text: #f3f4f6;
+        --muted: #94a3b8;
+        --border: rgba(148, 163, 184, 0.18);
+        --success: #10b981;
+        --shadow: 0 24px 70px rgba(2, 6, 23, 0.45);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: 'Inter', sans-serif;
+        background:
+          radial-gradient(circle at top, rgba(139, 92, 246, 0.22), transparent 20%),
+          radial-gradient(circle at bottom right, rgba(34, 211, 238, 0.12), transparent 22%),
+          var(--bg);
+        color: var(--text);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .page-shell {
+        width: min(1200px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        backdrop-filter: blur(18px);
+        background: rgba(11, 15, 26, 0.72);
+        border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+      }
+
+      .topbar-inner {
+        width: min(1200px, calc(100% - 32px));
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 78px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .brand-mark {
+        width: 36px;
+        height: 36px;
+        display: grid;
+        place-items: center;
+        border-radius: 12px;
+        background: linear-gradient(135deg, var(--primary), var(--accent));
+        box-shadow: 0 12px 30px rgba(124, 58, 237, 0.5);
+        font-size: 1.1rem;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+        color: var(--muted);
+        font-weight: 500;
+      }
+
+      .nav a {
+        transition: color 0.2s ease;
+      }
+
+      .nav a:hover {
+        color: var(--text);
+      }
+
+      .nav .cta {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.8rem 1.2rem;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--primary), var(--primary-strong));
+        color: white;
+        font-weight: 700;
+        box-shadow: 0 18px 40px rgba(124, 58, 237, 0.4);
+      }
+
+      .hero {
+        padding: 80px 0 32px;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.05fr 0.95fr;
+        gap: 40px;
+        align-items: center;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 0.5rem 0.85rem;
+        border-radius: 999px;
+        background: rgba(139, 92, 246, 0.12);
+        border: 1px solid rgba(139, 92, 246, 0.28);
+        color: #d8b4fe;
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 20px 0 16px;
+        font-size: clamp(2.8rem, 6vw, 4.6rem);
+        line-height: 1.02;
+        letter-spacing: -0.06em;
+      }
+
+      .lead {
+        max-width: 580px;
+        color: var(--muted);
+        font-size: 1.08rem;
+        line-height: 1.75;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        margin-top: 28px;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 14px;
+        padding: 1rem 1.4rem;
+        font-weight: 700;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .button:hover {
+        transform: translateY(-1px);
+      }
+
+      .button.primary {
+        background: linear-gradient(135deg, var(--primary), var(--primary-strong));
+        box-shadow: 0 20px 40px rgba(124, 58, 237, 0.35);
+        color: white;
+      }
+
+      .button.secondary {
+        background: rgba(148, 163, 184, 0.06);
+        border: 1px solid var(--border);
+        color: var(--text);
+      }
+
+      .hero-panel {
+        background: linear-gradient(180deg, rgba(17, 24, 39, 0.9), rgba(15, 23, 42, 0.9));
+        border: 1px solid rgba(148, 163, 184, 0.14);
+        border-radius: 28px;
+        padding: 28px;
+        box-shadow: var(--shadow);
+      }
+
+      .mini-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .metric {
+        padding: 18px 20px;
+        border-radius: 18px;
+        background: rgba(15, 23, 42, 0.7);
+        border: 1px solid rgba(148, 163, 184, 0.08);
+      }
+
+      .metric strong {
+        display: block;
+        font-size: 1.65rem;
+        margin-bottom: 6px;
+      }
+
+      .metric span {
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .main-content {
+        padding: 28px 0 96px;
+      }
+
+      .content-grid {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 28px;
+      }
+
+      .card {
+        background: rgba(15, 23, 42, 0.74);
+        border: 1px solid rgba(148, 163, 184, 0.12);
+        border-radius: 26px;
+        box-shadow: var(--shadow);
+      }
+
+      .contact-panel {
+        padding: clamp(24px, 4vw, 36px);
+      }
+
+      .panel-title {
+        font-size: 1.85rem;
+        letter-spacing: -0.05em;
+        margin: 0 0 8px;
+      }
+
+      .panel-subtitle {
+        color: var(--muted);
+        margin: 0 0 24px;
+        line-height: 1.7;
+      }
+
+      form {
+        display: grid;
+        gap: 18px;
+      }
+
+      .field-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      label {
+        display: grid;
+        gap: 8px;
+        color: #dfe7f5;
+        font-weight: 600;
+      }
+
+      input,
+      textarea,
+      select {
+        width: 100%;
+        border: 1px solid rgba(148, 163, 184, 0.14);
+        background: rgba(15, 23, 42, 0.7);
+        color: var(--text);
+        border-radius: 14px;
+        padding: 0.95rem 1rem;
+        font: inherit;
+        outline: none;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      input:focus,
+      textarea:focus,
+      select:focus {
+        border-color: rgba(139, 92, 246, 0.7);
+        box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.14);
+      }
+
+      textarea {
+        min-height: 150px;
+        resize: vertical;
+      }
+
+      .submit-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-top: 4px;
+      }
+
+      .status {
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .info-panel {
+        padding: 28px;
+        display: grid;
+        gap: 22px;
+      }
+
+      .info-block {
+        display: grid;
+        gap: 12px;
+      }
+
+      .info-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        padding: 16px 18px;
+        background: rgba(15, 23, 42, 0.7);
+        border-radius: 16px;
+        border: 1px solid rgba(148, 163, 184, 0.08);
+      }
+
+      .icon {
+        width: 42px;
+        height: 42px;
+        flex-shrink: 0;
+        display: grid;
+        place-items: center;
+        border-radius: 12px;
+        background: linear-gradient(135deg, rgba(139, 92, 246, 0.18), rgba(34, 211, 238, 0.12));
+        color: #d8b4fe;
+        font-size: 1.2rem;
+      }
+
+      .info-item strong {
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      .info-item span,
+      .info-item a {
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .socials {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .social-link {
+        width: 42px;
+        height: 42px;
+        display: grid;
+        place-items: center;
+        border-radius: 12px;
+        background: rgba(148, 163, 184, 0.06);
+        border: 1px solid rgba(148, 163, 184, 0.12);
+        color: var(--text);
+        font-weight: 700;
+      }
+
+      footer {
+        border-top: 1px solid rgba(148, 163, 184, 0.12);
+        padding: 28px 0 40px;
+        color: var(--muted);
+      }
+
+      .footer-inner {
+        width: min(1200px, calc(100% - 32px));
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      @media (max-width: 900px) {
+        .hero-grid,
+        .content-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .nav {
+          gap: 14px;
+          font-size: 0.9rem;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .topbar-inner {
+          min-height: 72px;
+          flex-wrap: wrap;
+          justify-content: center;
+          padding: 12px 0;
+        }
+
+        .nav {
+          width: 100%;
+          justify-content: center;
+          flex-wrap: wrap;
+        }
+
+        .field-grid,
+        .mini-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .submit-row {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .button,
+        .nav .cta {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="topbar-inner">
+        <a href="/" class="brand" aria-label="OnyxStatus home">
+          <span class="brand-mark">O</span>
+          <span>OnyxStatus</span>
+        </a>
+
+        <nav class="nav" aria-label="Main navigation">
+          <a href="/">Home</a>
+          <a href="/features">Features</a>
+          <a href="/pricing">Pricing</a>
+          <a href="/about">About</a>
+          <a href="/contact" class="cta">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="page-shell">
+      <section class="hero">
+        <div class="hero-grid">
+          <div>
+            <span class="eyebrow">Get in touch</span>
+            <h1>Let’s build your next signal.</h1>
+            <p class="lead">
+              Whether you’re growing a brand, launching a product, or refining your
+              system, OnyxStatus helps teams monitor what matters and move faster.
+            </p>
+            <div class="hero-actions">
+              <a class="button primary" href="#contact-form">Send a message</a>
+              <a class="button secondary" href="mailto:hello@onyxstatus.com">hello@onyxstatus.com</a>
+            </div>
+          </div>
+
+          <div class="hero-panel">
+            <div class="mini-grid">
+              <div class="metric">
+                <strong>24/7</strong>
+                <span>Signal coverage</span>
+              </div>
+              <div class="metric">
+                <strong>3x</strong>
+                <span>Faster insights</span>
+              </div>
+              <div class="metric">
+                <strong>99.9%</strong>
+                <span>Platform uptime</span>
+              </div>
+              <div class="metric">
+                <strong>12k+</strong>
+                <span>Teams covered</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="main-content">
+        <div class="content-grid">
+          <div class="card contact-panel" id="contact-form">
+            <h2 class="panel-title">Send us a message</h2>
+            <p class="panel-subtitle">
+              Tell us about your goals, timeline, and how OnyxStatus could support your team.
+            </p>
+
+            <form>
+              <div class="field-grid">
+                <label>
+                  First name
+                  <input type="text" name="first_name" placeholder="Jane" />
+                </label>
+                <label>
+                  Last name
+                  <input type="text" name="last_name" placeholder="Doe" />
+                </label>
+              </div>
+
+              <div class="field-grid">
+                <label>
+                  Email
+                  <input type="email" name="email" placeholder="jane@company.com" />
+                </label>
+                <label>
+                  Company
+                  <input type="text" name="company" placeholder="Acme Studio" />
+                </label>
+              </div>
+
+              <label>
+                Inquiry type
+                <select name="inquiry_type">
+                  <option>General inquiry</option>
+                  <option>Sales</option>
+                  <option>Partnership</option>
+                  <option>Support</option>
+                </select>
+              </label>
+
+              <label>
+                Message
+                <textarea name="message" placeholder="Tell us what you need help with..."></textarea>
+              </label>
+
+              <div class="submit-row">
+                <span class="status">We typically reply within one business day.</span>
+                <button class="button primary" type="submit">Send message</button>
+              </div>
+            </form>
+          </div>
+
+          <aside class="card info-panel">
+            <div class="info-block">
+              <h3 class="panel-title" style="font-size: 1.55rem; margin-bottom: 0;">Contact details</h3>
+              <div class="info-item">
+                <div class="icon">✦</div>
+                <div>
+                  <strong>Email</strong>
+                  <a href="mailto:hello@onyxstatus.com">hello@onyxstatus.com</a>
+                </div>
+              </div>
+
+              <div class="info-item">
+                <div class="icon">◎</div>
+                <div>
+                  <strong>Office</strong>
+                  <span>580 Market Street<br />San Francisco, CA</span>
+                </div>
+              </div>
+
+              <div class="info-item">
+                <div class="icon">◌</div>
+                <div>
+                  <strong>Hours</strong>
+                  <span>Mon–Fri<br />9:00 AM – 6:00 PM PT</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="info-block">
+              <h3 class="panel-title" style="font-size: 1.55rem; margin-bottom: 0;">Follow us</h3>
+              <div class="socials" aria-label="Social media links">
+                <a class="social-link" href="#" aria-label="Twitter">X</a>
+                <a class="social-link" href="#" aria-label="LinkedIn">in</a>
+                <a class="social-link" href="#" aria-label="GitHub">GH</a>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-inner">
+        <span>© 2025 OnyxStatus</span>
+        <span>Built for teams that move with clarity.</span>
+      </div>
+    </footer>
+  </body>
+</html>

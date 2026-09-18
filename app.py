@@ -254,6 +254,13 @@ def test():
     """
     return "ok"
 
+@app.route("/contact")
+def contact():
+    """
+    Access the Contact page of the Status Page.
+    """
+    return render_template("contact.html")
+
 # ============================================================
 # START MONITOR
 # ============================================================
