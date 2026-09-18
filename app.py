@@ -247,6 +247,12 @@ def health():
         "service": "onyx-status",
     }), 200
 
+@app.route("/test")
+def test():
+    """
+    Test variant to test my pull requests
+    """
+    return "ok"
 
 # ============================================================
 # START MONITOR
