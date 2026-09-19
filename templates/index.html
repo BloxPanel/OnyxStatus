@@ -32,6 +32,14 @@
 
       --green-bg: #102c26;
 
+      --red: #f87171;
+
+      --red-bg: #351a1d;
+
+      --amber: #fbbf24;
+
+      --amber-bg: #352a13;
+
       --purple: #8b7cf6;
 
       --purple-bg: #201d38;
@@ -209,7 +217,7 @@
 
     }
 
-    .unknown-icon {
+    .overall-icon {
 
       width: 39px;
 
@@ -221,15 +229,47 @@
 
       place-items: center;
 
-      color: var(--muted);
-
-      background: rgba(100, 116, 139, 0.12);
-
       border-radius: 50%;
 
       font-size: 19px;
 
       font-weight: 700;
+
+      transition:
+        color .2s ease,
+        background .2s ease;
+
+    }
+
+    .overall-icon.loading {
+
+      color: var(--muted);
+
+      background: rgba(100, 116, 139, 0.12);
+
+    }
+
+    .overall-icon.operational {
+
+      color: var(--green);
+
+      background: var(--green-bg);
+
+    }
+
+    .overall-icon.offline {
+
+      color: var(--red);
+
+      background: var(--red-bg);
+
+    }
+
+    .overall-icon.unavailable {
+
+      color: var(--amber);
+
+      background: var(--amber-bg);
 
     }
 
@@ -250,6 +290,61 @@
       font-size: 13px;
 
       margin-top: 2px;
+
+    }
+
+    /* LIVE METRICS */
+
+    .metrics {
+
+      display: grid;
+
+      grid-template-columns: repeat(4, 1fr);
+
+      gap: 12px;
+
+      margin: 0 0 24px;
+
+    }
+
+    .metric {
+
+      padding: 16px 18px;
+
+      background: var(--surface);
+
+      border: 1px solid var(--line);
+
+      border-radius: 12px;
+
+      box-shadow:
+        0 6px 20px var(--shadow);
+
+    }
+
+    .metric-label {
+
+      color: var(--muted-dark);
+
+      font-size: 10px;
+
+      font-weight: 700;
+
+      letter-spacing: .1em;
+
+      text-transform: uppercase;
+
+    }
+
+    .metric-value {
+
+      margin-top: 5px;
+
+      color: var(--ink);
+
+      font-size: 17px;
+
+      font-weight: 700;
 
     }
 
@@ -366,41 +461,7 @@
 
     /* STATUS */
 
-    .status {
-
-      display: flex;
-
-      align-items: center;
-
-      gap: 8px;
-
-      color: var(--green);
-
-      font-size: 13px;
-
-      font-weight: 600;
-
-    }
-
-    .dot {
-
-      width: 8px;
-
-      height: 8px;
-
-      flex-shrink: 0;
-
-      border-radius: 50%;
-
-      background: var(--green);
-
-      box-shadow:
-        0 0 0 4px rgba(45, 212, 167, 0.10),
-        0 0 10px rgba(45, 212, 167, 0.25);
-
-    }
-
-    .unknown {
+    .service-status {
 
       display: flex;
 
@@ -416,7 +477,7 @@
 
     }
 
-    .unknown-dot {
+    .status-dot {
 
       width: 8px;
 
@@ -430,6 +491,53 @@
 
       box-shadow:
         0 0 0 4px rgba(100, 116, 139, 0.10);
+
+    }
+
+    .service-status.operational {
+
+      color: var(--green);
+
+    }
+
+    .service-status.operational .status-dot {
+
+      background: var(--green);
+
+      box-shadow:
+        0 0 0 4px rgba(45, 212, 167, 0.10),
+        0 0 10px rgba(45, 212, 167, 0.25);
+
+    }
+
+    .service-status.offline {
+
+      color: var(--red);
+
+    }
+
+    .service-status.offline .status-dot {
+
+      background: var(--red);
+
+      box-shadow:
+        0 0 0 4px rgba(248, 113, 113, 0.10),
+        0 0 10px rgba(248, 113, 113, 0.20);
+
+    }
+
+    .service-status.unavailable {
+
+      color: var(--amber);
+
+    }
+
+    .service-status.unavailable .status-dot {
+
+      background: var(--amber);
+
+      box-shadow:
+        0 0 0 4px rgba(251, 191, 36, 0.10);
 
     }
 
@@ -504,6 +612,16 @@
 
     /* MOBILE */
 
+    @media (max-width: 700px) {
+
+      .metrics {
+
+        grid-template-columns: repeat(2, 1fr);
+
+      }
+
+    }
+
     @media (max-width: 600px) {
 
       .wrap {
@@ -530,15 +648,13 @@
 
       }
 
-      .status,
-      .unknown {
+      .service-status {
 
         font-size: 0;
 
       }
 
-      .status .dot,
-      .unknown .unknown-dot {
+      .service-status .status-dot {
 
         margin-right: 2px;
 
@@ -605,19 +721,89 @@
         aria-label="Overall status"
       >
 
-        <div class="unknown-icon">
-          ?
+        <div
+          class="overall-icon loading"
+          id="overall-icon"
+        >
+          …
         </div>
 
         <div>
 
-          <strong>
-            System status unknown
+          <strong id="overall-title">
+            Checking system status…
           </strong>
 
-          <span>
-            No systems are currently configured to report status.
+          <span id="overall-description">
+            Contacting the Onyx status service.
           </span>
+
+        </div>
+
+      </section>
+
+      <section
+        class="metrics"
+        aria-label="Live metrics"
+      >
+
+        <div class="metric">
+
+          <div class="metric-label">
+            Latency
+          </div>
+
+          <div
+            class="metric-value"
+            id="latency"
+          >
+            —
+          </div>
+
+        </div>
+
+        <div class="metric">
+
+          <div class="metric-label">
+            Servers
+          </div>
+
+          <div
+            class="metric-value"
+            id="guild-count"
+          >
+            —
+          </div>
+
+        </div>
+
+        <div class="metric">
+
+          <div class="metric-label">
+            Memory
+          </div>
+
+          <div
+            class="metric-value"
+            id="memory"
+          >
+            —
+          </div>
+
+        </div>
+
+        <div class="metric">
+
+          <div class="metric-label">
+            Last heartbeat
+          </div>
+
+          <div
+            class="metric-value"
+            id="heartbeat"
+          >
+            —
+          </div>
 
         </div>
 
@@ -640,20 +826,23 @@
             <div>
 
               <div class="service-name">
-                Onyx Platform
+                Core Bot
               </div>
 
               <div class="service-meta">
-                Core application and dashboard
+                Core Discord bot and moderation services
               </div>
 
             </div>
 
           </div>
 
-          <div class="unknown">
-            <i class="unknown-dot"></i>
-            Unknown
+          <div class="service-status">
+
+            <i class="status-dot"></i>
+
+            <span>Checking</span>
+
           </div>
 
         </div>
@@ -673,16 +862,19 @@
               </div>
 
               <div class="service-meta">
-                API requests and integrations
+                External API requests, including VirusTotal responses
               </div>
 
             </div>
 
           </div>
 
-          <div class="unknown">
-            <i class="unknown-dot"></i>
-            Unknown
+          <div class="service-status">
+
+            <i class="status-dot"></i>
+
+            <span>Checking</span>
+
           </div>
 
         </div>
@@ -698,20 +890,23 @@
             <div>
 
               <div class="service-name">
-                Webhooks
+                Twitch Integration
               </div>
 
               <div class="service-meta">
-                Event delivery and notifications
+                Twitch monitoring and cross-platform moderation
               </div>
 
             </div>
 
           </div>
 
-          <div class="unknown">
-            <i class="unknown-dot"></i>
-            Unknown
+          <div class="service-status">
+
+            <i class="status-dot"></i>
+
+            <span>Checking</span>
+
           </div>
 
         </div>
@@ -727,20 +922,23 @@
             <div>
 
               <div class="service-name">
-                Authentication
+                Website
               </div>
 
               <div class="service-meta">
-                Login and account services
+                Onyx website and web services
               </div>
 
             </div>
 
           </div>
 
-          <div class="unknown">
-            <i class="unknown-dot"></i>
-            Unknown
+          <div class="service-status">
+
+            <i class="status-dot"></i>
+
+            <span>Checking</span>
+
           </div>
 
         </div>
@@ -777,10 +975,268 @@
     <footer>
       © 2026 Onyx
       &nbsp;·&nbsp;
-      Status updates are refreshed automatically
+      <span id="last-checked">
+        Checking status…
+      </span>
     </footer>
 
   </div>
+
+  <script>
+
+    const STATUS_API =
+      "https://onyx-status-api.ethan-schlei.workers.dev/api/status";
+
+    const REFRESH_INTERVAL = 30000;
+
+    const overallIcon =
+      document.getElementById("overall-icon");
+
+    const overallTitle =
+      document.getElementById("overall-title");
+
+    const overallDescription =
+      document.getElementById("overall-description");
+
+    const latency =
+      document.getElementById("latency");
+
+    const guildCount =
+      document.getElementById("guild-count");
+
+    const memory =
+      document.getElementById("memory");
+
+    const heartbeat =
+      document.getElementById("heartbeat");
+
+    const lastChecked =
+      document.getElementById("last-checked");
+
+    const serviceStatuses =
+      document.querySelectorAll(".service-status");
+
+
+    function setServices(state, text) {
+
+      serviceStatuses.forEach((service) => {
+
+        service.className =
+          `service-status ${state}`;
+
+        const label =
+          service.querySelector("span");
+
+        label.textContent = text;
+
+      });
+
+    }
+
+
+    function formatHeartbeat(seconds) {
+
+      if (
+        seconds === null ||
+        seconds === undefined
+      ) {
+        return "Unknown";
+      }
+
+      if (seconds < 5) {
+        return "Just now";
+      }
+
+      if (seconds < 60) {
+        return `${seconds}s ago`;
+      }
+
+      const minutes =
+        Math.floor(seconds / 60);
+
+      if (minutes === 1) {
+        return "1m ago";
+      }
+
+      if (minutes < 60) {
+        return `${minutes}m ago`;
+      }
+
+      const hours =
+        Math.floor(minutes / 60);
+
+      return `${hours}h ago`;
+
+    }
+
+
+    function updateMetrics(data) {
+
+      latency.textContent =
+        data.latency_ms !== null &&
+        data.latency_ms !== undefined
+          ? `${data.latency_ms} ms`
+          : "—";
+
+      guildCount.textContent =
+        data.guild_count !== null &&
+        data.guild_count !== undefined
+          ? data.guild_count
+          : "—";
+
+      memory.textContent =
+        data.memory_mb !== null &&
+        data.memory_mb !== undefined
+          ? `${data.memory_mb} MB`
+          : "—";
+
+      heartbeat.textContent =
+        formatHeartbeat(
+          data.heartbeat_age_seconds
+        );
+
+    }
+
+
+    function showOperational(data) {
+
+      overallIcon.className =
+        "overall-icon operational";
+
+      overallIcon.textContent = "✓";
+
+      overallTitle.textContent =
+        "All systems operational";
+
+      overallDescription.textContent =
+        `Onyx is online and responding normally. ` +
+        `Version ${data.version ?? "unknown"}.`;
+
+      setServices(
+        "operational",
+        "Operational"
+      );
+
+    }
+
+
+    function showOffline(data) {
+
+      overallIcon.className =
+        "overall-icon offline";
+
+      overallIcon.textContent = "×";
+
+      overallTitle.textContent =
+        "Onyx is currently offline";
+
+      overallDescription.textContent =
+        "The latest Onyx heartbeat has expired.";
+
+      setServices(
+        "offline",
+        "Offline"
+      );
+
+    }
+
+
+    function showUnavailable() {
+
+      overallIcon.className =
+        "overall-icon unavailable";
+
+      overallIcon.textContent = "!";
+
+      overallTitle.textContent =
+        "Unable to retrieve system status";
+
+      overallDescription.textContent =
+        "The status service could not be reached. " +
+        "This does not necessarily mean Onyx is offline.";
+
+      latency.textContent = "—";
+
+      guildCount.textContent = "—";
+
+      memory.textContent = "—";
+
+      heartbeat.textContent = "—";
+
+      setServices(
+        "unavailable",
+        "Unavailable"
+      );
+
+    }
+
+
+    async function refreshStatus() {
+
+      try {
+
+        const response =
+          await fetch(
+            STATUS_API,
+            {
+              method: "GET",
+              cache: "no-store"
+            }
+          );
+
+        if (!response.ok) {
+          throw new Error(
+            `Status API returned ${response.status}`
+          );
+        }
+
+        const data =
+          await response.json();
+
+        updateMetrics(data);
+
+        if (data.online === true) {
+
+          showOperational(data);
+
+        } else {
+
+          showOffline(data);
+
+        }
+
+      } catch (error) {
+
+        console.error(
+          "Unable to retrieve Onyx status:",
+          error
+        );
+
+        showUnavailable();
+
+      }
+
+      lastChecked.textContent =
+        `Last checked ${new Date().toLocaleTimeString(
+          [],
+          {
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit"
+          }
+        )}`;
+
+    }
+
+
+    refreshStatus();
+
+    setInterval(
+      refreshStatus,
+      REFRESH_INTERVAL
+    );
+
+  </script>
 
 </body>
 
