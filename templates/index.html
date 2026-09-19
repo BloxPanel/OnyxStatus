@@ -1,73 +1,116 @@
 <!doctype html>
+
 <html lang="en">
+
 <head>
+
   <meta charset="utf-8">
+
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <title>Onyx Status</title>
 
   <style>
+
     :root {
+
       --ink: #f1f5f9;
+
       --muted: #94a3b8;
+
       --muted-dark: #64748b;
 
       --line: #252b3a;
 
       --bg: #0b0e14;
+
       --surface: #11151e;
+
       --surface-hover: #151a25;
 
       --green: #2dd4a7;
+
       --green-bg: #102c26;
 
       --purple: #8b7cf6;
+
       --purple-bg: #201d38;
 
       --shadow: rgba(0, 0, 0, 0.22);
+
     }
 
     * {
+
       box-sizing: border-box;
+
     }
 
     body {
+
       margin: 0;
+
       color: var(--ink);
+
       background: var(--bg);
+
       font: 15px/1.5 Inter, ui-sans-serif, system-ui, -apple-system,
             BlinkMacSystemFont, "Segoe UI", sans-serif;
+
     }
 
     .wrap {
+
       max-width: 980px;
+
       margin: auto;
+
       padding: 0 28px;
+
     }
 
     header {
+
       height: 76px;
+
       display: flex;
+
       align-items: center;
+
       justify-content: space-between;
+
       border-bottom: 1px solid var(--line);
+
     }
 
     .brand {
+
       display: flex;
+
       align-items: center;
+
       gap: 11px;
+
       font-weight: 750;
+
       letter-spacing: -.02em;
+
       font-size: 19px;
+
     }
 
     .mark {
+
       width: 30px;
+
       height: 30px;
+
       display: grid;
+
       place-items: center;
 
       color: #fff;
+
       background: linear-gradient(
         135deg,
         #6d5ce7,
@@ -75,123 +118,182 @@
       );
 
       border-radius: 9px;
+
       font-size: 14px;
+
       font-weight: 800;
 
       box-shadow:
         0 3px 12px rgba(109, 92, 231, 0.25);
+
     }
 
     .header-link {
+
       color: var(--muted);
+
       text-decoration: none;
+
       font-size: 13px;
+
       transition: color .2s ease;
+
     }
 
     .header-link:hover {
+
       color: var(--ink);
+
     }
 
     main {
+
       padding: 68px 0 80px;
+
     }
 
     /* HERO */
 
     .hero {
+
       text-align: center;
+
       margin-bottom: 44px;
+
     }
 
     .hero h1 {
+
       margin: 0 0 13px;
+
       font-size: clamp(32px, 5vw, 48px);
+
       letter-spacing: -.055em;
+
       line-height: 1.1;
+
     }
 
     .hero p {
+
       margin: 0 auto;
+
       max-width: 540px;
+
       color: var(--muted);
+
     }
 
     /* OVERALL STATUS */
 
     .overall {
+
       display: flex;
+
       align-items: center;
+
       gap: 18px;
 
       padding: 21px 24px;
+
       margin: 0 0 24px;
 
       background: var(--surface);
+
       border: 1px solid var(--line);
+
       border-radius: 14px;
 
       box-shadow:
         0 8px 28px var(--shadow);
+
     }
 
-    .check {
+    .unknown-icon {
+
       width: 39px;
+
       height: 39px;
 
+      flex-shrink: 0;
+
       display: grid;
+
       place-items: center;
 
-      color: var(--green);
-      background: var(--green-bg);
+      color: var(--muted);
+
+      background: rgba(100, 116, 139, 0.12);
 
       border-radius: 50%;
 
-      font-size: 22px;
+      font-size: 19px;
+
       font-weight: 700;
+
     }
 
     .overall strong {
+
       display: block;
+
       font-size: 16px;
+
     }
 
     .overall span {
+
       display: block;
+
       color: var(--muted);
+
       font-size: 13px;
+
       margin-top: 2px;
+
     }
 
     /* SECTION LABEL */
 
     .label {
+
       margin: 34px 0 11px;
 
       font-size: 11px;
+
       color: var(--muted-dark);
 
       font-weight: 700;
+
       letter-spacing: .12em;
+
       text-transform: uppercase;
+
     }
 
     /* SERVICES */
 
     .services {
+
       overflow: hidden;
 
       background: var(--surface);
+
       border: 1px solid var(--line);
+
       border-radius: 14px;
 
       box-shadow:
         0 8px 28px var(--shadow);
+
     }
 
     .service {
+
       display: flex;
+
       align-items: center;
+
       justify-content: space-between;
 
       padding: 20px 24px;
@@ -199,63 +301,94 @@
       border-bottom: 1px solid var(--line);
 
       transition: background .15s ease;
+
     }
 
     .service:hover {
+
       background: var(--surface-hover);
+
     }
 
     .service:last-child {
+
       border: 0;
+
     }
 
     .service-info {
+
       display: flex;
+
       align-items: center;
+
       gap: 14px;
+
     }
 
     .service-icon {
+
       width: 35px;
+
       height: 35px;
 
+      flex-shrink: 0;
+
       display: grid;
+
       place-items: center;
 
       color: var(--purple);
+
       background: var(--purple-bg);
 
       border-radius: 9px;
 
       font-weight: 700;
+
     }
 
     .service-name {
+
       font-weight: 650;
+
     }
 
     .service-meta {
+
       color: var(--muted);
+
       font-size: 12px;
+
       margin-top: 2px;
+
     }
 
     /* STATUS */
 
     .status {
+
       display: flex;
+
       align-items: center;
+
       gap: 8px;
 
       color: var(--green);
 
       font-size: 13px;
+
       font-weight: 600;
+
     }
 
     .dot {
+
       width: 8px;
+
       height: 8px;
+
+      flex-shrink: 0;
 
       border-radius: 50%;
 
@@ -264,92 +397,171 @@
       box-shadow:
         0 0 0 4px rgba(45, 212, 167, 0.10),
         0 0 10px rgba(45, 212, 167, 0.25);
+
+    }
+
+    .unknown {
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 8px;
+
+      color: var(--muted-dark);
+
+      font-size: 13px;
+
+      font-weight: 600;
+
+    }
+
+    .unknown-dot {
+
+      width: 8px;
+
+      height: 8px;
+
+      flex-shrink: 0;
+
+      border-radius: 50%;
+
+      background: var(--muted-dark);
+
+      box-shadow:
+        0 0 0 4px rgba(100, 116, 139, 0.10);
+
     }
 
     /* INCIDENTS */
 
     .incident {
+
       padding: 23px 24px;
 
       background: var(--surface);
+
       border: 1px solid var(--line);
+
       border-radius: 14px;
 
       box-shadow:
         0 8px 28px var(--shadow);
+
     }
 
     .incident-top {
+
       display: flex;
+
       justify-content: space-between;
+
       gap: 20px;
+
     }
 
     .incident h3 {
+
       margin: 0;
+
       font-size: 15px;
+
     }
 
     .date {
+
       color: var(--muted-dark);
+
       font-size: 12px;
+
       white-space: nowrap;
+
     }
 
     .incident p {
+
       margin: 8px 0 0;
 
       color: var(--muted);
+
       font-size: 13px;
+
     }
 
     /* FOOTER */
 
     footer {
+
       padding: 25px 0 35px;
 
       color: var(--muted-dark);
+
       text-align: center;
+
       font-size: 12px;
+
     }
 
     /* MOBILE */
 
     @media (max-width: 600px) {
+
       .wrap {
+
         padding: 0 18px;
+
       }
 
       main {
+
         padding-top: 48px;
+
       }
 
       .service {
+
         padding: 18px;
+
       }
 
       .overall {
+
         padding: 18px;
+
       }
 
-      .status {
+      .status,
+      .unknown {
+
         font-size: 0;
+
       }
 
-      .status .dot {
+      .status .dot,
+      .unknown .unknown-dot {
+
         margin-right: 2px;
+
       }
 
       .incident-top {
+
         display: block;
+
       }
 
       .date {
+
         display: block;
+
         margin-top: 4px;
+
       }
+
     }
+
   </style>
+
 </head>
 
 <body>
@@ -359,13 +571,16 @@
     <header>
 
       <div class="brand">
+
         <div class="mark">O</div>
+
         Onyx
+
       </div>
 
       <a
         class="header-link"
-        href="mailto:support@onyx.example"
+        href="/contact"
       >
         Contact support ↗
       </a>
@@ -390,18 +605,18 @@
         aria-label="Overall status"
       >
 
-        <div class="check">
-          ✓
+        <div class="unknown-icon">
+          ?
         </div>
 
         <div>
 
           <strong>
-            All systems operational
+            System status unknown
           </strong>
 
           <span>
-            Everything is running smoothly.
+            No systems are currently configured to report status.
           </span>
 
         </div>
@@ -436,9 +651,9 @@
 
           </div>
 
-          <div class="status">
-            <i class="dot"></i>
-            Operational
+          <div class="unknown">
+            <i class="unknown-dot"></i>
+            Unknown
           </div>
 
         </div>
@@ -465,9 +680,9 @@
 
           </div>
 
-          <div class="status">
-            <i class="dot"></i>
-            Operational
+          <div class="unknown">
+            <i class="unknown-dot"></i>
+            Unknown
           </div>
 
         </div>
@@ -494,9 +709,9 @@
 
           </div>
 
-          <div class="status">
-            <i class="dot"></i>
-            Operational
+          <div class="unknown">
+            <i class="unknown-dot"></i>
+            Unknown
           </div>
 
         </div>
@@ -523,9 +738,9 @@
 
           </div>
 
-          <div class="status">
-            <i class="dot"></i>
-            Operational
+          <div class="unknown">
+            <i class="unknown-dot"></i>
+            Unknown
           </div>
 
         </div>
@@ -568,4 +783,5 @@
   </div>
 
 </body>
+
 </html>
